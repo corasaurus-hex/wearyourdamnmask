@@ -37,6 +37,14 @@ h1 {
     border-top: solid 1px grey;
 }
 
+.as-of {
+    border-top: solid 1px grey;
+}
+
+.as-of .timestamp {
+    margin: 0 auto;
+}
+
 .deaths {
     color: #ff3333;
 }

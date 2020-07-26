@@ -3,6 +3,7 @@
 require "open-uri"
 require "json"
 require "erb"
+require "time"
 
 template = File.open("index.erb", "rb", encoding: "utf-8", &:read)
 css = File.open("main.css", "rb", encoding: "utf-8", &:read)
@@ -36,6 +37,10 @@ class Context < Struct.new(:template, :css, :covid_deaths)
                    [war, {deaths: deaths, multiplier: "%0.2f" % (covid_deaths.to_f / deaths)}]
                  }.to_h
                end
+  end
+
+  def as_of
+    Time.now.utc.rfc822.gsub("-0000", "UTC")
   end
 
   def render
