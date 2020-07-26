@@ -4,6 +4,7 @@ require "open-uri"
 require "json"
 require "erb"
 require "time"
+require "fileutils"
 
 template = File.open("index.erb", "rb", encoding: "utf-8", &:read)
 css = File.open("main.css", "rb", encoding: "utf-8", &:read)
@@ -48,4 +49,5 @@ class Context < Struct.new(:template, :css, :covid_deaths)
   end
 end
 
+FileUtils.mkdir_p("build")
 File.write("build/index.html", Context.new(template, css, covid_deaths).render)
