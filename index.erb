@@ -18,7 +18,6 @@
         <style type="text/css" media="screen">
          <%= css %>
         </style>
-
     </head>
     <body>
         <div id="content">
@@ -54,6 +53,11 @@
                         <a href="https://covidtracking.com/">
                             The COVID Tracking Project
                         </a>
+                    </div>
+                </div>
+                <div class="element as-of">
+                    <div class="timestamp">
+                        <%= Time.now.utc.rfc822.gsub("-0000", "UTC") %>
                     </div>
                 </div>
             </div>
