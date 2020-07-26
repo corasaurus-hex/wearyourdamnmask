@@ -1,0 +1,62 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Wear Your Damn Mask</title>
+        <meta name="description" content="Even more reasons to wear a mask to limit the spread of COVID-19.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <meta property="og:title" content="Wear Your Damn Mask">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://wearyourdamnma.sk">
+        <meta property="og:image" content="">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" media="screen" />
+
+        <style type="text/css" media="screen">
+         <%= css %>
+        </style>
+
+    </head>
+    <body>
+        <div id="content">
+            <h1>US COVID-19 Deaths<br />vs<br />US War Deaths</h1>
+            <div class="stack">
+                <div class="element">
+                    <div class="war">
+                        COVID-19 deaths are...
+                    </div>
+                    <div class="deaths">
+                        <%= number_with_delimiter(covid_deaths) %> deaths
+                    </div>
+                </div>
+                <% war_death_stats.each do |war, stats| %>
+                    <div class="element">
+                        <div class="war">
+                            <%= stats[:multiplier] %> x <%= war %>
+                        </div>
+                        <div class="deaths">
+                            <%= number_with_delimiter(stats[:deaths]) %> deaths
+                        </div>
+                    </div>
+                <% end %>
+                <div class="element sources">
+                    <div class="source-label">
+                        Sources
+                    </div>
+                    <div class="source">
+                        <a href="https://en.wikipedia.org/wiki/United_States_military_casualties_of_war#Wars_ranked_by_total_number_of_U.S._military_deaths">
+                            Wikipedia
+                        </a>
+                        &amp;
+                        <a href="https://covidtracking.com/">
+                            The COVID Tracking Project
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

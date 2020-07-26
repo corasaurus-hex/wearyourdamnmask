@@ -1,0 +1,46 @@
+body {
+    font-family: Sans-Serif;
+}
+
+#content {
+    max-width: 60ch;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 2rem;
+}
+
+h1 {
+    text-align: center;
+    padding: 2rem;
+    margin: 0;
+}
+
+.stack > * + * {
+    border-top: solid 1px lightgrey;
+}
+
+.stack {
+    border-top: solid 1px grey;
+    border-bottom: solid 1px grey;
+}
+
+.element {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    height: 3.5rem;
+}
+
+.element.sources {
+    border-top: solid 1px grey;
+}
+
+.deaths {
+    color: #ff3333;
+}
+
+.war, .source-label {
+    font-weight: bolder;
+}
