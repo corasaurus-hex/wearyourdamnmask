@@ -35,6 +35,7 @@ h1 {
 
 .element.sources {
     border-top: solid 1px grey;
+    height: 100%;
 }
 
 .as-of {
@@ -49,6 +50,10 @@ h1 {
     color: #ff3333;
 }
 
-.war, .source-label {
+.source-label {
+    margin-right: 2em;
+}
+
+.event, .source-label {
     font-weight: bolder;
 }
