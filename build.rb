@@ -73,4 +73,6 @@ class Context < Struct.new(:template, :css, :covid_deaths, :as_of)
 end
 
 FileUtils.mkdir_p("build")
+FileUtils.cp("robots.txt", "build/robots.txt")
 File.write("build/index.html", Context.new(template, css, covid_deaths, as_of).render)
+
