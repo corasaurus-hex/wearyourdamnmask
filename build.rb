@@ -9,9 +9,11 @@ require "fileutils"
 template = File.open("index.erb", "rb", encoding: "utf-8", &:read)
 css = File.open("main.css", "rb", encoding: "utf-8", &:read)
 
-covid_deaths = JSON.parse(URI.open("https://covidtracking.com/api/v1/us/current.json").read)[0]["death"]
+summary = JSON.parse(URI.open("https://api.covid19api.com/summary").read)["Countries"].find{|c| c["CountryCode"] == "US" }
+covid_deaths = summary["TotalDeaths"]
+as_of = DateTime.parse(summary["Date"]).to_time.rfc822.gsub("+0000", "UTC")
 
-class Context < Struct.new(:template, :css, :covid_deaths)
+class Context < Struct.new(:template, :css, :covid_deaths, :as_of)
   EVENT_DEATHS = {
     "WW2" => 405_399,
     "WW1" => 116_516,
@@ -28,7 +30,7 @@ class Context < Struct.new(:template, :css, :covid_deaths)
     "Wikipedia - US War Casualties" => "https://en.wikipedia.org/wiki/United_States_military_casualties_of_war#Wars_ranked_by_total_number_of_U.S._military_deaths",
     "Wikipedia - 9/11 Casualties" => "https://en.wikipedia.org/wiki/Casualties_of_the_September_11_attacks",
     "CDC - 2018-2019 Flu Deaths" => "https://www.cdc.gov/flu/about/burden/2018-2019.html",
-    "The COVID Tracking Project" => "https://covidtracking.com/",
+    "COVID 19 API" => "https://covid19api.com/",
   }
 
   def number_with_delimiter(number)
@@ -53,14 +55,10 @@ class Context < Struct.new(:template, :css, :covid_deaths)
     SOURCES
   end
 
-  def as_of
-    Time.now.utc.rfc822.gsub("-0000", "UTC")
-  end
-
   def render
     @r ||= ERB.new(template).result(binding)
   end
 end
 
 FileUtils.mkdir_p("build")
-File.write("build/index.html", Context.new(template, css, covid_deaths).render)
+File.write("build/index.html", Context.new(template, css, covid_deaths, as_of).render)
