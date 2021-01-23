@@ -25,6 +25,8 @@ class Context < Struct.new(:template, :css, :covid_deaths, :as_of)
   }
 
   EVENT_DEATHS = {
+    "Spanish Flu" => 675_000,
+    "Civil War" => 655_000,
     "WW2" => 405_399,
     "WW1" => 116_516,
     "Vietnam War" => 58_209,
@@ -41,6 +43,7 @@ class Context < Struct.new(:template, :css, :covid_deaths, :as_of)
     "Wikipedia - US War Casualties" => "https://en.wikipedia.org/wiki/United_States_military_casualties_of_war#Wars_ranked_by_total_number_of_U.S._military_deaths",
     "Wikipedia - 9/11 Casualties" => "https://en.wikipedia.org/wiki/Casualties_of_the_September_11_attacks",
     "CDC - 2018-2019 Flu Deaths" => "https://www.cdc.gov/flu/about/burden/2018-2019.html",
+    "CDC - 1918 Pandemic" => "https://www.cdc.gov/flu/pandemic-resources/1918-pandemic-h1n1.html",
     "COVID 19 API" => "https://covid19api.com/",
     "Gun Violence Archive" => "https://www.gunviolencearchive.org/",
   }
