@@ -76,8 +76,15 @@
       <script>
         window.onload = function() {
             var div = document.querySelector('#as-of');
-            var date = new Date("<%= as_of.iso8601 %>")
-            div.innerText = date.toLocaleString()
+            var date = new Date("<%= as_of.iso8601 %>");
+            var offset = -(date.getTimezoneOffset() / 60);
+            var newInnerText = date.toLocaleString() + ' UTC';
+            if (offset < 0) {
+                newInnerText = newInnerText + offset;
+            } else if (offset > 0) {
+                newInnerText = newInnerText + '+' + offset;
+            }
+            div.innerText = newInnerText;
         }
       </script>
     </div>
