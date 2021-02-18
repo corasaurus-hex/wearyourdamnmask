@@ -9,10 +9,8 @@ require "fileutils"
 template = File.open("index.html.erb", "rb", encoding: "utf-8", &:read)
 css = File.open("main.css", "rb", encoding: "utf-8", &:read)
 
-summary = JSON.parse(URI.open("https://api.covid19api.com/summary").read)["Countries"].find{|c| c["CountryCode"] == "US" }
-covid_deaths = summary["TotalDeaths"]
-as_of = DateTime.parse(summary["Date"]).to_time.rfc822.gsub("+0000", "UTC")
-
+covid_deaths = JSON.parse(URI.open("https://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=statusBar_external_data").read)["statusBar"].first["us_total_deaths"]
+as_of = Time.now.utc.rfc822.gsub("+0000", "UTC")
 cities = JSON.parse(File.read("cities.json"), symbolize_names: true)[:cities]
 
 class Context < Struct.new(:template, :css, :covid_deaths, :as_of, :cities)
@@ -46,7 +44,7 @@ class Context < Struct.new(:template, :css, :covid_deaths, :as_of, :cities)
     "Wikipedia - List of US Cities by Population" => "https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population",
     "CDC - 2018-2019 Flu Deaths" => "https://www.cdc.gov/flu/about/burden/2018-2019.html",
     "CDC - 1918 Pandemic" => "https://www.cdc.gov/flu/pandemic-resources/1918-pandemic-h1n1.html",
-    "COVID 19 API" => "https://covid19api.com/",
+    "CDC COVID Data Tracker" => "https://covid.cdc.gov/covid-data-tracker/",
     "Gun Violence Archive" => "https://www.gunviolencearchive.org/",
   }
 
@@ -88,4 +86,3 @@ end
 FileUtils.mkdir_p("build")
 FileUtils.cp("robots.txt", "build/robots.txt")
 File.write("build/index.html", Context.new(template, css, covid_deaths, as_of, cities).render)
-
