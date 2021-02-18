@@ -69,10 +69,17 @@
         </div>
       </div>
       <div class="element as-of">
-        <div class="timestamp">
-          <%= as_of %>
+        <div id="as-of" class="timestamp">
+          <%= as_of.rfc822.gsub(/(\+|-)0000/, "UTC") %>
         </div>
       </div>
+      <script>
+        window.onload = function() {
+            var div = document.querySelector('#as-of');
+            var date = new Date("<%= as_of.iso8601 %>")
+            div.innerText = date.toLocaleString()
+        }
+      </script>
     </div>
   </div>
   <a href="https://github.com/corasaurus-hex/wearyourdamnmask" class="github-corner" aria-label="View source on GitHub">

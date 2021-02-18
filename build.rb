@@ -10,7 +10,7 @@ template = File.open("index.html.erb", "rb", encoding: "utf-8", &:read)
 css = File.open("main.css", "rb", encoding: "utf-8", &:read)
 
 covid_deaths = JSON.parse(URI.open("https://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=statusBar_external_data").read)["statusBar"].first["us_total_deaths"]
-as_of = Time.now.utc.rfc822.gsub("+0000", "UTC")
+as_of = Time.now.utc
 cities = JSON.parse(File.read("cities.json"), symbolize_names: true)[:cities]
 
 class Context < Struct.new(:template, :css, :covid_deaths, :as_of, :cities)
