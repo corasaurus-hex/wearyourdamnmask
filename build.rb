@@ -85,4 +85,5 @@ end
 
 FileUtils.mkdir_p("build")
 FileUtils.cp("robots.txt", "build/robots.txt")
+FileUtils.cp("deaths_graph.png", "build/deaths_graph.png")
 File.write("build/index.html", Context.new(template, css, covid_deaths, as_of, cities).render)
